@@ -1,0 +1,41 @@
+
+		<ul id="navlist">
+		<li {if $menu_group == "patient"}id="active"{/if}>
+		<a href="{link controller='MyRecord' action='default'}" {if $menu_group == "patient"}id="current" name="current"{/if} >Home</a> 
+		</li>
+
+		<li {if $menu_group == "admin"}id="active"{/if}>
+		<a href="{link controller='MyMessages' action='inbox'}" {if $menu_group == "admin"}id="current" name="current"{/if}>InBox</a> 
+		</li>
+
+		{*<li {if $menu_group == "admin"}id="active"{/if}>
+		<a href="{link controller='MyMessages' action='new'}" {if $menu_group == "admin"}id="current" name="current"{/if}>Send Message</a> 
+		</li>*}
+
+
+		{*<li {if $menu_group == "admin"}id="active"{/if}>
+		<a href="{$base_dir}index.php/MyRecord/default?patient_id={$patient_id}&token={$token}" {if $menu_group == "admin"}id="current" name="current"{/if}>Send My Record </a> 
+		</li>*}
+
+		{*<li {if $menu_group == "admin"}id="active"{/if}>
+		<a href="{$base_dir}index.php/MyRecord/default?patient_id={$patient_id}&token={$token}" {if $menu_group == "admin"}id="current" name="current"{/if}>My Health Summary</a> 
+		</li>*}
+
+		{*<li {if $menu_group == "admin"}id="active"{/if}>
+		<a href="{$base_dir}index.php/MyRecord/default?patient_id={$patient_id}&token={$token}" {if $menu_group == "admin"}id="current" name="current"{/if}>Update My Record</a> 
+		</li>*}
+
+
+                <li {if $menu_group == "protocol"}id="active"{/if}>
+                {clni_wiki_link name='Help'}
+                </li>
+
+
+
+
+
+
+
+
+
+

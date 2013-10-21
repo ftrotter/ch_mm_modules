@@ -1,0 +1,6 @@
+						
+					{include file="myrecord/general_patient_summary.html"}
+						
+			
+				{include file="myrecord/general_files_summary.html"} 
+				

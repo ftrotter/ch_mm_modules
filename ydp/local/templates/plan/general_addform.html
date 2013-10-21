@@ -1,0 +1,36 @@
+{clni_form process=$PROCESS}
+<input type='hidden' name='patient_id' value='{$patient_id}'>
+<fieldset class="radio" id="plan">
+<legend>{l}New Plan{/l}</legend>
+<table>
+<tr>
+<td>
+<label>{l}Plan Type{/l}</label>
+</td>
+<td>
+			<select name="plan_type">
+				{enum_options name="protocols"}
+			</select>	
+</td>
+</tr>
+<tr>
+<td>
+<label>{l}Plan Status{/l}</label>
+</td>
+<td>
+			<select name="plan_status">
+				{enum_options name="plan_status"}
+			</select>	
+</td>
+</tr>
+<tr>
+<td></td>
+<td>
+<input type="submit" value="Add Plan" class="context">
+</td>
+</tr>
+</table>
+
+</fieldset>
+
+</form>

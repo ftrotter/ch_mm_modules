@@ -1,0 +1,25 @@
+<!--START from /var/www/html/php4/ydp_trunk/local/templates/ydpprotocol/plan_form_template.html comment made with MMCM-->
+{literal}{clni_form}{/literal}
+<h3>{$name}</h3>
+<br>
+{literal} {set var=$risks_array value={/literal}{varexport array=$risks_array}{literal}}{/literal}
+1. What Risk Factors Concern You?<br>
+{literal}{input name="risks" type="multiselect" array=$risks_array display="horizontal"}{/literal}
+
+2. Your Planned Intervention?<br>
+{literal}{input style="width: 6in; height: 1in;" name="intervention" type="text" size="100"}{/literal}<br>
+
+3. Your Goals for the Patient?<br>
+{literal}{input style="width: 6in; height: 1in;" name="goals" type="text" size="100"}{/literal}<br>
+
+<br>
+<br>
+
+{literal}{ydp_plans patient=$external_id}{/literal}
+
+
+<input type='hidden' name='force_new_version' value='true'>
+<input type='hidden' name="external_id" value="{literal}{$external_id}{/literal}" id="external_id">
+{literal}{submit label="Save" onClick="parent.encounter_view();"}{/literal}
+</form>
+<!--END from /var/www/html/php4/ydp_trunk/local/templates/ydpprotocol/plan_form_template.html comment made with MMCM-->

@@ -1,0 +1,43 @@
+<!--START from /var/www/html/php4/ydp_trunk/local/templates/protocol/general_default.html comment made with MMCM-->
+<table>
+<h1>My Protocols</h1>
+<tr><td>To create a Protocol for use in your practice,<br>
+ click one of the Protocol links in "Adult Protocols" or <br>
+"Child Protocols". To start from a previously created protocol,<br>
+click on that protocol in "My Protocols".<br>
+
+<tr><td>
+<fieldset class="radio" id="person" >
+<legend>{l}Adult Protocols{/l}</legend>
+{$adult_asthma_form}<br>
+{$lipids_form}<br>
+{$chf_form}<br>
+{$cad_form}<br>
+{$diabetes_form}<br>
+{$depression_form}<br>
+{$hypertension_form}<br>
+{$excercise_form}<br>
+</fieldset>
+</td>
+<td valign='top'>
+<fieldset class="radio" id="person" >
+<legend>{l}Child Protocols{/l}</legend>
+{$add_form}<br>
+{$child_asthma_form}<br>
+{$otitis_media_form}<br>
+{$pharyngitis_form}<br>
+</fieldset>
+</td>
+</tr>
+<tr><td>
+<fieldset class="radio" id="person" >
+<legend>{l}My Protocols{/l}</legend>
+	{$formDataGrid->render()}
+	{if $formDataGrid->empty}
+	<p>{l}You have no saved protocols{/l}</p>
+	{/if}
+</fieldset>
+</td>
+</tr>
+</table>
+<!--END from /var/www/html/php4/ydp_trunk/local/templates/protocol/general_default.html comment made with MMCM-->

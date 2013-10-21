@@ -1,0 +1,284 @@
+<!--START from modules/ydp/local/templates/ydpplan/general_ydpplan.html -->
+
+{literal}
+<style type='text/css'>
+
+
+    div.autocomplete {
+      position:absolute;
+      width:250px;
+      background-color:white;
+      border:1px solid #888;
+      margin:0px;
+      padding:0px;
+    }
+    div.autocomplete ul {
+      list-style-type:none;
+      margin:0px;
+      padding:0px;
+    }
+    div.autocomplete ul li.selected { 
+    margin: 1px 1px 1px 1px ;
+    border-style: solid;
+    border-width: 3px;
+	border-color:  #8CACBB  #d2e2ea #e3ecf1 #6b93a6 ;
+	background-color:#DEE7EC;
+	color: black;
+   }
+{* greens 
+darkest #75c88d
+dark #90e2a8
+middle for background #a5e4b7
+light #9df3b6
+lightest #bdedcb
+
+*}
+    div.autocomplete ul li.free_text_button { 
+        border-style: solid;
+        border-width: 5px;
+	border-color: #9df3b6 #90e2a8 #75c88d #bdedcb;
+	background-color:#a5e4b7;
+	color: black;
+	}
+
+    div.autocomplete ul li.no_results_button {
+        border-style: solid;
+        border-width: 5px;
+	border-color: #FFFFE6 #FFFF80 #BFBF60 #FFFFBF;
+        background-color:#FFFFBF;
+        color: black;
+        }
+
+
+    div.autocomplete ul li {
+      list-style-type:none;
+      display:block;
+      margin:0;
+      height:20px;
+      cursor:pointer;
+        border-style: solid;
+        border-width: 3px;
+        border-color: #d2e2ea #6b93a6 #8CACBB #e3ecf1;
+        background-color:#DEE7EC;
+        color: #999999;
+
+
+    }
+
+</style>
+
+
+<script language="javascript">
+function toggle(obj) {
+		var el = document.getElementById(obj);
+		if ( el.style.display != 'none' ) {
+			el.style.display = 'none';
+		}
+		else {
+			el.style.display = '';
+		}
+		return false;
+	}
+function turn_on(obj) {
+		var el = document.getElementById(obj);
+		el.style.display = '';
+
+	}
+function turn_off(obj) {
+		var el = document.getElementById(obj);
+		el.style.display = 'none';
+	}
+
+function callAHAH(url, pageElement, callMessage, errorMessage) {
+     document.getElementById(pageElement).innerHTML = callMessage;
+     try {
+     req = new XMLHttpRequest(); /* e.g. Firefox */
+     } catch(e) {
+       try {
+       req = new ActiveXObject("Msxml2.XMLHTTP");  /* some versions IE */
+       } catch (e) {
+         try {
+         req = new ActiveXObject("Microsoft.XMLHTTP");  /* some versions IE */
+         } catch (E) {
+          req = false;
+         } 
+       } 
+     }
+     req.onreadystatechange = function() {responseAHAH(pageElement,
+      	errorMessage);};
+     req.open("GET",url,true);
+     req.send(null);
+  }
+ 
+function responseAHAH(pageElement, errorMessage) {
+   var output = '';
+   if(req.readyState == 4) {
+      if(req.status == 200) {
+         output = req.responseText;
+         document.getElementById(pageElement).innerHTML = output;
+         } else {
+         document.getElementById(pageElement).innerHTML =  
+            errorMessage+"\n"+output;
+         }
+      }
+  }
+
+	function setHidden(text, li){
+
+		if(li.id != 0){
+			var hidden = document.getElementById('autocomplete_hidden');
+			hidden.value = li.id;
+			var button = document.getElementById('autocomplete_button');
+			button.style.display = '';
+		}else{
+			//alert('li id = 0!!!');
+		}
+			
+		
+	}
+
+	function validateAuto(thisform){
+
+		var hidden = document.getElementById('autocomplete_hidden');
+		if(hidden.value==null||hidden.value==''){
+			return false;
+		}else{
+			return true;
+		}
+
+	}
+
+
+	function addLine(value){
+		// not used for now
+
+		var hidden = document.getElementById('autocomplete_hidden');
+{/literal}
+		var add_url = '{$ADD_ACTION}&protocolcode= ' + hidden.value;	
+{literal}
+		window.location.href = add_url;			
+
+	}
+
+
+</script>
+
+{/literal}
+
+
+
+<h1 style='color: 'align='left' >Patient Plan</h1>
+
+
+
+
+<div style="width: 300px; float: left; margin: 10px">
+	<fieldset>
+           <legend><b>Patient Demographics</b></legend>
+                Medical Home Physician: {$provider->get(last_name)}, {$provider->get(first_name)}<br>
+                Patient Name: {$person->get('last_name')},  {$person->get('first_name')}<br>
+                &nbsp; &nbsp; &nbsp; Date of Birth: {$person->get(date_of_birth)|date_format}<br> 
+ 
+        {foreach from=$person->get_addresses() item=row}
+                &nbsp; &nbsp; &nbsp; Address: {$row.type}:
+{$row.line1}<br>
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {$row.line2} {$row.city}
+ {enum_lookup name=state value=$row.state}, {$row.postal_code}<br>
+        {foreachelse}
+                No Addresses<br>
+        {/foreach}
+        {foreach from=$person->get_numbers() item=row}
+                &nbsp; &nbsp; &nbsp; Phone {$row.number_type}:  {formatPhoneNumber number=$row.number} {if !$row.active}DNC{/if}<br>
+        {foreachelse}
+                No Phone Number <br>
+        {/foreach}
+
+               
+                &nbsp; &nbsp; &nbsp; Email: {$person->get('email')}<br>
+
+</fieldset>
+</div>
+
+
+<div style='margin: 10px;'>
+	<fieldset>
+           <legend><b>Patient Actions</b></legend>
+		                <a class="button" href='{$MESSAGE_LINK}'>Create Patient Message</a><br>
+                                <a class="button" href='{$DOCUMENT_LINK}'>Manage Patient Documents</a><br>
+                                <a class="button" href='#' onclick="toggle('tele_consult'); return false;" >Begin Tele-Consult</a>
+                                {*<a class="button" href='https://yourdoctorprogram.com/ydp_demo_unstable/index.php/menu/Report/report?report_id=1003789&report_template_id=1003798'>Code Report</a>
+*}                         
+     {*  <a class="button" href='{$SURVEY_LINK}'>Surveys</a> *}
+</fieldset>                
+</div>
+
+<div id='tele_consult' style='display: none'>
+<fieldset>
+<legend>Tele-Consult</legend>
+Tele-psych Phone: (713) 249-2874
+</fieldset>
+</div>
+
+<div style='clear: both'></div>
+
+
+<br><a href='#' onclick="toggle('add_plan'); return false;">Add New Condition</a><br>
+	<div id='add_plan' style='display:none'>
+<table>
+<tr>
+<td>
+<form action='{$ADD_ACTION}' onsubmit='return validateAuto(this)' method="POST">
+search by icd codes or descriptions
+
+<span id="searching" style="display: none">
+	<img src="images/spinner.gif"> Searching... 
+</span>
+
+<span id="noresults" style="display: none">
+        No results were found for your search string. Please try again.
+</span>
+
+
+<br>
+
+<input type="text" id="autocomplete" name="search_string" size=70/>
+<div id="autocomplete_choices" class="autocomplete"></div>
+<input type="hidden" id="autocomplete_hidden" name="autocomplete_hidden">
+problem managed by {ydp_providers_select}
+<input style='display: none' type="submit" id="autocomplete_button" name="autocomplete_button" value='Add'>
+</form>
+
+<script language="javascript">
+new Ajax.Autocompleter("autocomplete", "autocomplete_choices", '{$AUTO_AJAXACTION}',{literal} {
+		afterUpdateElement : setHidden, 
+		minChars : 4,
+		indicator: 'searching'
+	});{/literal}
+</script>
+
+{*enum_options name='protocols'*}
+</td>
+</tr>
+</table>
+</div>
+
+
+
+
+
+		{$planRowEditor->render()}
+		{if $planRowEditor->empty}
+			<p>{l}Patient has no Plans{/l}</p>
+		{/if}
+
+        <fieldset class="radio" id="details">
+        <legend>{l}This Patients Messages{/l}</legend>
+                {$patientMessageGrid->render()}
+		{if $patientMessageGrid->empty}
+        		<p>This Patient has no Messages</p>
+        	{/if}
+
+        </fieldset>
+
+
+<!--END from modules/ydp/local/templates/ydpplan/general_ydpplan.html -->

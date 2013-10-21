@@ -1,0 +1,46 @@
+{clni_form action=$STATUS_ACTION process=$PROCESS}
+
+<input type='hidden' name='plan_id' value='{$id}'>
+<input type='hidden' name='patient_id' value='{$patient_id}'>
+
+<fieldset class="radio" id="planfieldset">
+	<legend>{l}Edit Plan{/l}</legend>
+	<table>
+	<tr>
+	<td>
+		<label>{l}Plan Status{/l}</label>
+	</td>
+	<td>
+		<select name="plan_status">
+		{enum_options name="plan_status" selected=$plan_status}
+		</select>	
+	</td>
+	</tr>
+<tr>
+<td>
+<label>{l}Plan Name{/l}</label>
+</td>
+<td>
+				<input name="plan_name" type="text" value="{$plan_name}">
+</td>
+</tr>
+
+<tr>
+<td>
+<label>{l}Plan Owner{/l}</label>
+</td>
+<td>
+				{providers_select}
+</td>
+</tr>
+
+	<tr>
+	<td></td>
+	<td>
+		<input type="submit" value="Change Status">
+	</td>
+	</tr>
+	</table>
+
+</fieldset>
+

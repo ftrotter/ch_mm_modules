@@ -1,0 +1,209 @@
+
+{literal}
+<style type='text/css'>
+
+div.autocomplete {
+      position:absolute;
+      width:250px;
+      background-color:white;
+      border:1px solid #888;
+      margin:0px;
+      padding:0px;
+    }
+    div.autocomplete ul {
+      list-style-type:none;
+      margin:0px;
+      padding:0px;
+    }
+    div.autocomplete ul li.selected { background-color: #ffb;}
+    div.autocomplete ul li {
+      list-style-type:none;
+      display:block;
+      margin:0;
+      padding:2px;
+      height:32px;
+      cursor:pointer;
+    }
+</style>
+{/literal}
+
+<script type="text/javascript">
+{literal}
+
+function add_user(input_field,selected_item){
+	message_div = document.getElementById('search_messages');
+	message_div.innerHTML = '';
+
+        
+	is_already_here = document.getElementById(selected_item.id +'_li');
+
+        user_number = selected_item.id;
+	user_name = input_field.value;
+
+
+	if(is_already_here == undefined){
+	
+		//display_ul = document.getElementById('display_ul');
+    	        newli = document.createElement('li');
+   	        form = document.getElementById('to_form');
+		newhidden = document.createElement('input');
+		newhidden.setAttribute('type','hidden');
+   	        hidden_id = 'to[' + user_number + ']';
+		newhidden.setAttribute('id', hidden_id );
+		newhidden.setAttribute('name',hidden_id);
+		newhidden.setAttribute('value',user_number);
+	       
+ 
+		newli.innerHTML = user_name + 
+		'<a href="#" onclick="remove_user(\'' + hidden_id + '\',\''+ user_number  +
+		'_li\');"><img src="{/literal}{$base_uri}{literal}index.php/images/stock_trash-16.png"></a>' ;
+		newli.setAttribute('id',user_number + '_li');
+		document.getElementById('display_ul').appendChild(newli);	
+		form.appendChild(newhidden);
+	}else{
+		message_div.innerHTML = 'User '	+ user_name + ' is already on the recipients list';
+	}
+	search_text = document.getElementById('search');
+	search_text.value = '';
+
+}
+
+function remove_user(form_element_id,li_element_id){
+	message_div = document.getElementById('search_messages');
+	message_div.innerHTML = '';
+
+	var hidden_to_remove = document.getElementById(form_element_id);
+        var form = document.getElementById('to_form');
+	form.removeChild(hidden_to_remove);
+
+
+	var li_to_remove = document.getElementById(li_element_id);
+	var display_ul = document.getElementById('display_ul');
+//	li_to_remove.style.display = 'none';
+//	li_to_remove.setAttribute('id','ignoreme');
+	display_ul.removeChild(li_to_remove);
+
+
+        return false;
+}
+
+{/literal}
+
+</script>
+
+{literal}
+<script language="javascript">
+function toggle(obj) {
+		var el = document.getElementById(obj);
+		if ( el.style.display != 'none' ) {
+			el.style.display = 'none';
+		}
+		else {
+			el.style.display = '';
+		}
+		return false;
+	}
+function turn_on(obj) {
+		var el = document.getElementById(obj);
+		el.style.display = '';
+
+	}
+function turn_off(obj) {
+		var el = document.getElementById(obj);
+		el.style.display = 'none';
+	}
+
+
+</script>
+{/literal}
+{foreach from=$message_array item=this_message key=message_id}
+
+
+<div id='{$this_message.message_id}_message_div' class='button' {if !$this_message.show}style='display: none'{/if} >
+{pretty_date string=$this_message.when_sent}
+<a href='#' onclick="javascript:turn_on('{$this_message.message_id}_summary_div');turn_off('{$this_message.message_id}_message_div');">
+From: {$this_message.from_field} </a> 
+<br>
+<div style="background-color: white; padding: 10px; border-style: ridge">
+{$this_message.content}
+</div>
+<br>
+
+</div>
+<div id='{$this_message.message_id}_summary_div' class='button' {if $this_message.show}style='display: none'{/if} >
+{pretty_date string=$this_message.when_sent}
+<a href='#' onclick="javascript:turn_on('{$this_message.message_id}_message_div');turn_off('{$this_message.message_id}_summary_div');">
+From: {$this_message.from_field} </a> 
+{$this_message.summary_text}...
+<br>
+</div>
+
+{foreach from=$this_message item=value key=key}
+{*{$key} = {$value} <br>*}
+{/foreach}
+{/foreach}
+<br>
+<div id='reply_div'>
+{clni_form action=$SEND_ACTION id='to_form' onsubmit=''}
+	<fieldset class="radio" id="details">
+		<legend>{l}Send Message{/l}</legend>
+                    <table>
+			<tbody>
+                    <tr>
+			    <td><label>{l}To{/l}:</label> </td>
+			    <td>
+			<input type="text" id="search" name="search" autocomplete="off" class="input" value="" />
+			<div id='search_messages'> </div><br><br>
+<span id="searching" style="display: none">
+        <img src="images/spinner.gif"> Searching...
+</span>
+
+			<div id="update" class="autocomplete"></div>
+<ul id='display_ul'>
+{foreach from=$current_people item=name}
+<li> {$name} </li>
+{/foreach}
+</ul>	
+
+</td>
+			</tr><tr>
+			    <td><label>{l}Subject{/l}:</label> </td>
+			    <td>RE: {$subject}  
+
+<input type='hidden' name='thread_id' value='{$thread_id}'></td>
+<input type='hidden' name='priority' value='{$priority}'></td>
+		  </tr>
+		  <tr>
+				<td style="vertical-align: top;"><label>{l}Message{/l}:</label> </td>
+			  <td colspan=3>
+		{fckeditor InstanceName="message" Width="650px" Height="300px" ToolbarSet="Text" StartupFocus=true }
+			  </td>
+                  </tr>
+		<tr><td><input type="submit" name='send' value="Send"> 
+		</td><td align='right'>
+		<input type="submit" name="send_and_mark_done" value="Send and Mark Done">
+		</td>	</tr>
+
+
+                    </table>
+                    </fieldset>
+
+
+</form>
+</div>
+
+<script type="text/javascript">
+//alert('bau');
+{literal}
+
+new Ajax.Autocompleter('search','update','{/literal}{$base_uri}{literal}index.php/Messages/userlist', 
+			{	afterUpdateElement: add_user, 
+				minChars : 4,
+				indicator: 'searching'
+			} );
+
+{/literal}
+
+</script>
+
+

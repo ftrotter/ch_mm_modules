@@ -1,0 +1,36 @@
+
+<h2><a href='{$newcrop_show}'> Manage Prescriptions</a></h2>
+<table class='grid'>
+<tr>
+<th>Name  </th>
+<th>Strength  </th>
+<th>Dosage  </th>
+<th>Dosage Form  </th>
+<th>Precription Date  </th>
+</tr>
+{foreach from=$meds_array key=k item=med name=medloop}
+<tr {if $smarty.foreach.medloop.iteration %2 == 0}class="alt"{/if}>
+<td> {$med.DrugName} </td>
+<td> {$med.Strength} {$med.StrengthUOM} </td>
+<td> {$med.DosageNumberDescription}  {$med.DosageFrequencyDescription} </td>
+<td> {$med.DosageForm} </td>
+<td> {$med.PrescriptionDate} </td>
+</tr>
+
+{/foreach} 
+</table>
+
+<h2><a href='{$newcrop_show}'> Manage Allergies</a></h2>   
+<table class='grid'>
+<th>Name  </th>
+<th>Severity  </th>
+<th>Notes  </th>
+</tr>
+{foreach from=$allergy_array key=k item=allergy name=allergyloop}
+<tr {if $smarty.foreach.allergyloop.iteration %2 == 0}class="alt"{/if}>
+<td> {$allergy.Name} </td>
+<td> {$allergy.SeverityName}  </td>
+<td> {$allergy.Notes}  </td>
+</tr>
+{/foreach} 
+</table>

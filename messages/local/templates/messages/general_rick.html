@@ -1,0 +1,119 @@
+<h1>Hello World!</h1>
+{literal}
+<style type='text/css'>
+
+div.autocomplete {
+      position:absolute;
+      width:250px;
+      background-color:white;
+      border:1px solid #888;
+      margin:0px;
+      padding:0px;
+    }
+    div.autocomplete ul {
+      list-style-type:none;
+      margin:0px;
+      padding:0px;
+    }
+    div.autocomplete ul li.selected { background-color: #ffb;}
+    div.autocomplete ul li {
+      list-style-type:none;
+      display:block;
+      margin:0;
+      padding:2px;
+      height:32px;
+      cursor:pointer;
+    }
+</style>
+{/literal}
+
+<script type="text/javascript">
+{literal}
+
+function add_user(input_field,selected_item){
+	message_div = document.getElementById('search_messages');
+	message_div.innerHTML = '';
+
+        
+	is_already_here = document.getElementById(selected_item.id +'_li');
+
+        user_number = selected_item.id;
+	user_name = input_field.value;
+
+
+	if(is_already_here == undefined){
+	
+		display_ul = document.getElementById('display_ul');
+    	    newli = document.createElement('li');
+   	     form = document.getElementById('to_form');
+		newhidden = document.createElement('input');
+		newhidden.setAttribute('type','hidden');
+   	     hidden_id = 'to[' + user_number + ']';
+		newhidden.setAttribute('id', hidden_id );
+		newhidden.setAttribute('name',hidden_id);
+		newhidden.setAttribute('value',user_number);
+	       
+ 
+		newli.innerHTML = user_name + 
+		'<a href="#" onclick="remove_user(\'' + hidden_id + '\',\''+ user_number  +
+		'_li\');"><img src="{/literal}{$base_uri}{literal}index.php/images/stock_trash-16.png"></a>' ;
+		newli.setAttribute('id',user_number + '_li');
+		display_ul.appendChild(newli);	
+		form.appendChild(newhidden);
+	}else{
+		message_div.innerHTML = 'User '	+ user_name + ' is already on the recipients list';
+	}
+	search_text = document.getElementById('search');
+	search_text.value = '';
+
+}
+
+function remove_user(form_element_id,li_element_id){
+	message_div = document.getElementById('search_messages');
+	message_div.innerHTML = '';
+
+	var hidden_to_remove = document.getElementById(form_element_id);
+        var form = document.getElementById('to_form');
+	form.removeChild(hidden_to_remove);
+
+
+	var li_to_remove = document.getElementById(li_element_id);
+	var display_ul = document.getElementById('display_ul');
+//	li_to_remove.style.display = 'none';
+//	li_to_remove.setAttribute('id','ignoreme');
+	display_ul.removeChild(li_to_remove);
+
+
+        return false;
+}
+
+{/literal}
+
+</script>
+
+
+
+
+<div id="container">
+<form method="post" action="{$VAREXPORT_ACTION}" id='to_form'>
+<label for="testinput">Search for a user</label><br />
+<input type="text" id="search" name="search" autocomplete="off" class="input" value="" /><br />
+<div id='search_messages'> </div>
+
+<input type="submit">
+<div id="update" class="autocomplete"></div>
+</form>
+
+<ul id='display_ul'>
+</ul>
+
+<script type="text/javascript">
+//alert('bau');
+{literal}
+
+new Ajax.Autocompleter('search','update','{/literal}{$base_uri}{literal}index.php/Messages/userlist', {afterUpdateElement: add_user } );
+
+{/literal}
+
+</script>
+</div> 

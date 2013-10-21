@@ -1,0 +1,43 @@
+
+{clni_form action=$EDIT_ACTION process=$PROCESS}
+
+<input type='hidden' name='plan_id' value='{$id}'>
+<input type='hidden' name='patient_id' value='{$patient_id}'>
+
+
+
+
+<fieldset class="radio" id="planhistory">
+<legend>{l}Plan History{/l}</legend>
+
+	{$currentplanDataGrid->render()}
+	{if $currentplanDataGrid->empty}
+		<p>{l}Please Detail the plan below{/l}, </p>
+
+	{else}
+		<p>{l}The plan below is based on the last version you saved.{/l} 
+		You can start <a href="{$PLAN_LINK}" target="plan_iframe" onclick="javascript:turn_on('plan_div')">
+		{l}From Scratch{/l}</a>, 
+		{l} or start from one of the versions above{/l}</p>
+
+	{/if}
+
+
+
+
+</form>
+
+
+<div id='invis_plan_div' style='display: none'> Just to remember how to do this.</div>
+<div id='plan_div'>
+<div align='center'>
+</div>
+
+<iframe id='plan_iframe' name='plan_iframe' frameborder='0' width='100%' height='1000'{if $currentplanDataGrid->empty} src='{$PLAN_LINK}' {else} src='{$LAST_PLAN_LINK}' {/if} >
+
+YDP requires a browser that supports iframes and yours does not. (try <a href='http://www.mozilla.com/firefox/'>Firefox</a>) <br>
+</iframe>
+</div>
+
+</fieldset>
+

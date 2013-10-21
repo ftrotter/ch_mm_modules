@@ -1,0 +1,38 @@
+<!--START from /var/www/html/php4/ydp_trunk/local/templates/plan/general_addform.html comment made with MMCM-->
+{clni_form process=$PROCESS}
+<input type='hidden' name='patient_id' value='{$patient_id}'>
+<fieldset class="radio" id="plan">
+<legend>{l}New Plan{/l}</legend>
+<table>
+<tr>
+<td>
+<label>{l}Prototype to implement?{/l}</label>
+</td>
+<td>
+			<select name="plan_type">
+				{enum_options name="protocols"}
+			</select>	
+</td>
+</tr>
+<tr>
+<td>
+<label>{l}Plan Status{/l}</label>
+</td>
+<td>
+			<select name="plan_status">
+				{enum_options name="plan_status"}
+			</select>	
+</td>
+</tr>
+<tr>
+<td></td>
+<td>
+<input type="submit" value="Add Plan" class="context">
+</td>
+</tr>
+</table>
+
+</fieldset>
+
+</form>
+<!--END from /var/www/html/php4/ydp_trunk/local/templates/patient/general_summary_report.html comment made with MMCM-->

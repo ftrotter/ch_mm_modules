@@ -1,0 +1,76 @@
+{literal}
+<script type='text/javascript'>
+function toggle(obj) {
+		var el = document.getElementById(obj);
+		if ( el.style.display != 'none' ) {
+			el.style.display = 'none';
+		}
+		else {
+			el.style.display = '';
+		}
+		return false;
+	}
+function turn_on(obj) {
+		var el = document.getElementById(obj);
+		el.style.display = '';
+
+	}
+function turn_off(obj) {
+		var el = document.getElementById(obj);
+		el.style.display = 'none';
+	}
+
+</script>
+{/literal}
+
+{if $results_count == 0}
+
+	<h2> You do not have any renewal notices </h2>
+
+{else}
+	<h2> This is a list of all of your renewals </h2>
+	<table class='grid'><tr>
+	<th>Patient DOB </th> <th> Renewal Date </th> <th>Drug</th> <th> Actions Available </th> <th>Doctor Location</th> <th> Pharmacy </th>
+	</tr>
+	{foreach from=$renewals_array key=k item=renewal name=renewloop}
+	<tr {if $smarty.foreach.renewloop.iteration %2 == 1}class="alt"{/if}>
+
+	{if $renewal.patient_url}
+	<td> <a href='{$renewal.patient_url}'>{$renewal.PatientFirstName}, {$renewal.PatientMiddleName} {$renewal.PatientLastName} </a>/ {$renewal.PatientDOB} </td>	
+	{else}
+	<td> {$renewal.PatientFirstName}, {$renewal.PatientMiddleName} {$renewal.PatientLastName} / {$renewal.PatientDOB} </td>	
+	{/if}
+	<td> {$renewal.ReceivedTimestamp}</td>
+	<td> {$renewal.DrugInfo}</td>
+	<td> {$renewal.match_result} <br> {$renewal.match_url}</td>
+	<td> {$renewal.ExternalLocationId} </td>
+	<td> {$renewal.PharmacyInfo} </td>
+
+	</tr>
+	{/foreach}
+
+	</table>
+{/if}
+
+
+
+
+<br><br><br>
+
+
+
+Status = {$status} <br>
+Message = {$message} <br>
+
+<a href='#' onclick="toggle('debug')">Show Debugging</a>
+<div id='debug' style='display: none'>
+<h1>SOAP sent = </h1>
+<pre>
+{$request_txt}
+</pre>
+<h1>Results returned = </h1>
+<pre>
+{$response_txt}
+</pre>
+</div>
+

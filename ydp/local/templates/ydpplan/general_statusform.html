@@ -1,0 +1,13 @@
+
+
+<form action='{$form_link}' method='POST'>
+
+	<select name="plan_status">
+		<option label="active" value="1">active</option>
+		<option label="inactive" value="2">inactive</option>
+	</select>	
+ 
+	<input type='hidden' name='plan_id' value='{$plan_id}'>
+	<input type='hidden' name='col_id' value='plan_name'>
+	<input type='submit' name='process' value='save'>
+</form>

@@ -1,0 +1,37 @@
+<?php
+
+
+$config = $GLOBALS['config'];
+$config['messages'] = Array();
+$config['messages']['email']['from'] = 'EHR@portage.synseer.net';
+$config['messages']['email']['from_name'] = 'MirrorMed';
+$config['messages']['email']['subject'] = 'Check Your Messages';
+$config['messages']['email']['send_to_patient'] = false;
+$config['messages']['email']['all_messages_are_tasks'] = true;
+$config['messages']['email']['priority_threshold'] = 3;
+
+$server = $_SERVER['SERVER_NAME'];	
+
+// set this to an email and all "email notices" will get cced here for testing purposes
+$config['messages']['email']['testing_email'] = false;
+
+
+
+$path_parts = split('/',$_SERVER['REQUEST_URI']);
+$instance_name = $path_parts[1];
+
+$main_url = "https://$server/$instance_name/";
+$patient_url = "https://$server/$instance_name"."_patient/";
+
+
+
+
+$config['messages']['email']['main_url'] = $main_url;
+$config['messages']['email']['patient_url'] = $patient_url;
+
+
+$GLOBALS['config'] = $config;
+
+
+
+?>

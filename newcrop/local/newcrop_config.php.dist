@@ -1,0 +1,82 @@
+<?php
+/*
+This file is very sensitive to changes and should not be edited by people who are not familiar with the NewCrop architcure. 
+
+Please contact support rather than modify this file yourself.
+
+
+
+*/
+// Please contact Fred Trotter AT fred.trotter AT gmail.com to get the WSDL files and urls that make this
+// Newcrop module work. 
+
+
+$config = $GLOBALS['config'];
+
+$config['newcrop_enabled'] = false;
+
+//if(     strcmp($instance_name,"demo")==0||
+//        strcmp($instance_name,"demo_unstable")==0)//Then this is a demo... load the demo ERX Credentials
+if(true)
+{
+
+        $config['ERXurl'] = "";
+        $config['ERXwsdl'] = '';
+        $config['ERXUpdate1wsdl'] = '';
+        $config['ERXDoctorwsdl'] = '';
+  
+	$credentials = array(
+                'partnerName' => 'SynSeer',
+                'name' => 'demo',
+                'password' => 'demo',
+                'accountId' => 'AnDifferentAccount',
+                'siteId' => 'ADifferentSite',
+                'productName' => 'MirrorMed',
+                'productVersion' => '2.0RC2');
+
+
+        $config['ERXCredentials'] = $credentials;
+
+        $config['ERXSOAPCredentials'] = array(
+                'PartnerName' => $credentials['partnerName'],
+                'Name' => $credentials['name'],
+                'Password' => $credentials['password'],
+                'accountId' => $credentials['accountId'],
+                'siteId' => $credentials['siteId'],
+		);
+
+}else{//live system use real credentials
+        $config['ERXurl'] = "";
+        $config['ERXwsdl'] = '';
+	//these are dummy too... of course...
+	$credentials = array(
+                'partnerName' => 'SynSeer',
+                'name' => 'demo',
+                'password' => 'demo',
+                'accountId' => 'AnDifferentAccount',
+                'siteId' => 'ADifferentSite',
+                'productName' => 'MirrorMed',
+                'productVersion' => '2.0RC2');
+
+
+        $config['ERXCredentials'] = $credentials;
+
+        $config['ERXSOAPCredentials'] = array(
+                'PartnerName' => $credentials['partnerName'],
+                'Name' => $credentials['name'],
+                'Password' => $credentials['password'],
+                'accountId' => $credentials['accountId'],
+                'siteId' => $credentials['siteId'],
+		);
+
+}
+
+
+
+
+
+$GLOBALS['config'] = $config;
+
+
+
+?>

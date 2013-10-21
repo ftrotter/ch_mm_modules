@@ -1,0 +1,118 @@
+<!--START from /var/www/html/php4/ydp_trunk/local/templates/survey/general_edit.html comment made with MMCM-->
+
+<!--general_edit.html start-->
+{clni_form id="surveyEditForm" action=$FORM_ACTION autocomplete="off" process=$PROCESS}
+
+<input type="hidden" name="patient_id" id="patient_id" value="{$patient_id}">
+<input type="hidden" name="survey_id" id="survey_id" value="{$survey_id}">
+
+<fieldset class="radio" id="survey" >
+<legend>{l}{if $form_id > 0}Update{else}Add{/if} a Survey{/l}</legend>
+<br>
+
+{if $status != 4}{* FRED hardcoded is there a way around this?*}
+This survey is incomplete you can <a href='{$MANUAL_COMPLETE_ACTION}'>manually complete the survey</a>
+{else}
+This survey is complete, and cannot be further modified.
+{/if}
+<br>
+<br>
+
+<table>
+<tr>
+	<td>
+	<label>{l}Patient{/l}</label> 
+	</td>
+	<td>
+	{$patient_name}
+	</td>
+</tr>
+
+<tr>
+	<td>
+	<label>{l}Status{/l}</label>
+	</td>
+	<td>
+	{enum_lookup name="survey_status" value=$status}
+	</td>
+</tr>
+
+
+<tr>
+	<td>
+	<label>{l}Treatment Date{/l}</label>
+	</td>
+	<td>
+	{$treatment_date}
+	</td>
+</tr>
+
+<tr>
+	<td>
+	<label>{l}Treated By{/l}</label>
+	</td>
+	<td>
+	{$provider_name}
+	</td>
+</tr>
+
+{if $status != 4}{* FRED hardcoded is there a way around this?*}
+
+<tr>
+ <td><a href="#" class="tooltip" {popup text="Select the Form to use as the survey"}>
+	<label>{l}Form{/l}</label></a>
+ </td>
+ <td>
+	<select name="form_id">
+	{foreach  name="forms" from=$form_list  key=key item=item}
+	<option {if $form_id eq $key}selected{/if} value="{$key}">{$item}</option>
+	{/foreach}
+	</select>
+ </td>
+</tr>
+
+<tr>
+ <td><a href="#" class="tooltip" {popup text="Select the Encounter to reference with this survey"}>
+	<label>{l}Encounter{/l}</label></a>
+ </td>
+ <td>
+	<select name="encounter_id">
+	<option {if $encounter_id eq 0}selected{/if} value="0">none</option>
+	{foreach  name="encounter" from=$encounter_multi_array item=encounter}
+	<option {if $encounter_id eq $encounter.encounter_id}selected{/if} value="{$encounter.encounter_id}">
+	{$encounter.date_of_treatment} - {$encounter.treating_person} - {$encounter.encounter_reason}
+	</option>
+	{/foreach}
+	</select>
+ </td>
+</tr>
+<tr>
+ <td>
+	<a href="#" class="tooltip" {popup text="How many times should the system try to send this survey"}>
+	<label>{l}Number of Resends{/l}</label></a>
+ </td>
+ <td>
+	<input id="to_contact" name="to_contact" size="2" value="{$to_contact}"><br>
+ </td>
+</tr>	
+<tr>
+ <td>
+	<a href="#" class="tooltip" {popup text="Enter the date that you would like to send the next reminder to send this form"}>
+	<label>{l}Start Date{/l}</label></a>
+ </td>
+ <td>
+	{clni_input_date value=$next_contact_date name="next_contact_date" id="next_contact_date"}<br>
+ </td>
+</tr>
+<tr><td></td>
+ <td>
+	<input name="label" value="{if $form_id > 0}Update{else}Add{/if}" type="submit"><br>
+ </td>
+</tr>
+</table>
+{/if}
+</fieldset>
+</form>
+
+<!--general_edit.html end-->
+<!--END from /var/www/html/php4/ydp_trunk/local/templates/survey/general_edit.html comment made with MMCM-->

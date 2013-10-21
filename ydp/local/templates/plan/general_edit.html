@@ -1,0 +1,49 @@
+{clni_form process=$PROCESS}
+
+<input type='hidden' name='plan_id' value='{$id}'>
+<input type='hidden' name='patient_id' value='{$patient_id}'>
+<fieldset class="radio" id="plan">
+<legend>{l}Edit Plan{/l}</legend>
+<table>
+<tr>
+<td>
+<label>{l}Prototype{/l}</label>
+</td>
+<td>
+{enum_lookup name="protocols" value=$plan_type}
+</td>
+</tr>
+<tr>
+<td>
+<label>{l}Plan Status{/l}</label>
+</td>
+<td>
+<select name="plan_status">
+{enum_options name="plan_status" selected=$plan_status}
+</select>	
+</td>
+</tr>
+<tr>
+<td></td>
+<td>
+<input type="submit" value="Change Status">
+</td>
+</tr>
+</table>
+
+</fieldset>
+
+<fieldset class="radio" id="plan">
+<legend>{l}Plan History{/l}</legend>
+<a href='{$PLAN_LINK}'>New Plan</a><br>
+
+	{$formDataGrid->render()}
+	{if $formDataGrid->empty}
+	<p>{l}So far no plan has been created that implements this prototype{/l}</p>
+	{/if}
+
+
+</fieldset>
+
+
+</form>

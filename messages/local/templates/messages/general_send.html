@@ -1,0 +1,223 @@
+
+{literal}
+<style type='text/css'>
+
+div.autocomplete {
+      position:absolute;
+      width:250px;
+      background-color:white;
+      border:1px solid #888;
+      margin:0px;
+      padding:0px;
+    }
+    div.autocomplete ul {
+      list-style-type:none;
+      margin:0px;
+      padding:0px;
+    }
+    div.autocomplete ul li.selected { background-color: #ffb;}
+    div.autocomplete ul li {
+      list-style-type:none;
+      display:block;
+      margin:0;
+      padding:2px;
+      height:32px;
+      cursor:pointer;
+    }
+</style>
+{/literal}
+
+<script type="text/javascript">
+{literal}
+
+function add_user(input_field,selected_item){
+	message_div = document.getElementById('search_messages');
+	message_div.innerHTML = '';
+
+	if(selected_item.id == 0){
+
+		search_box = document.getElementById('search');
+		search_box.value = '';
+		return false;
+
+	}       
+ 
+	is_already_here = document.getElementById(selected_item.id +'_li');
+
+        user_number = selected_item.id;
+	user_name = input_field.value;
+
+
+	if(is_already_here == undefined){
+	
+	//	debugger;
+	//	display_ul = document.getElementById('display_ul');
+    	        newli = document.createElement('li');
+   	        form = document.getElementById('to_form');
+   	        hidden_id = 'to[' + user_number + ']';
+
+		newhidden = document.createElement('input');
+
+
+
+		newhidden.setAttribute('type','hidden');
+		newhidden.setAttribute('id', hidden_id );
+		newhidden.setAttribute('name',hidden_id);
+		newhidden.setAttribute('value',user_number);
+	       
+ 
+		newli.innerHTML = user_name + 
+		'<a href="#" onclick="remove_user(\'' + hidden_id + '\',\''+ user_number  +
+		'_li\');"><img src="{/literal}{$base_uri}{literal}index.php/images/stock_trash-16.png"></a>' ;
+		newli.setAttribute('id',user_number + '_li');
+	//	display_ul.appendChild(newli);	
+		document.getElementById('display_ul').appendChild(newli);
+		form.appendChild(newhidden);
+	}else{
+		message_div.innerHTML = 'User '	+ user_name + ' is already on the recipients list';
+	}
+	search_text = document.getElementById('search');
+	search_text.value = '';
+
+}
+
+function remove_user(form_element_id,li_element_id){
+	message_div = document.getElementById('search_messages');
+	message_div.innerHTML = '';
+
+	var hidden_to_remove = document.getElementById(form_element_id);
+        var form = document.getElementById('to_form');
+	form.removeChild(hidden_to_remove);
+
+
+	var li_to_remove = document.getElementById(li_element_id);
+	var display_ul = document.getElementById('display_ul');
+//	li_to_remove.style.display = 'none';
+//	li_to_remove.setAttribute('id','ignoreme');
+	display_ul.removeChild(li_to_remove);
+
+
+        return false;
+}
+
+{/literal}
+
+</script>
+
+{clni_form autocomplete="off" id='to_form' onsubmit=''}
+<br>
+	<fieldset class="radio" id="details">
+		<legend>{l}Send Message{/l}</legend>
+                    <table>
+			<tbody>
+                    <tr>
+			    <td><label>{l}To{/l}:<br><br></label> </td>
+			    <td>
+			<input type="text" id="search" name="search" autocomplete="off" class="input" value="" />
+			<div id='search_messages'> </div>
+<span id="searching" style="display: none">
+        <img src="images/spinner.gif"> Searching...
+</span>
+
+
+			<div id="update" class="autocomplete"></div>
+	
+{clni_config name='messages.email.send_to_patient' assign='send_to_patient'}
+<ul id='display_ul'>
+{if $send_to_patient}
+<li> {$regarding} </li>
+{/if}
+
+			</ul>	
+			   </td>
+			    <td> 
+			
+</td>
+			    <td>				    </td>	
+			   <td>
+			    </td>	
+			   <td>
+			   </td>
+
+</td>
+			</tr>
+<tr>
+			    <td><label>{l}Subject{/l}:</label> </td>
+			    <td><input name="subject" id="subject" size="40" tabindex="2">
+</td>
+{if $display_task}
+			    <td>
+				<label> Is this a task? </label>
+			    </td>	
+			   <td>
+				   <select name="is_todo" id="is_todo">
+					<option value="0">No</a>
+					<option value="1">Yes</a>
+				   </select>
+			   </td>
+{else}			
+			    <td>
+				<label> All messages are tasks </label>
+			    </td>	
+			   <td>
+				<input type='hidden' name='is_todo' id='is_todo' value='1'>
+			   </td>
+{/if}
+{*
+			    <td> <a href="#" class="tooltip" {popup text="5 appears with a red background, 4 with a yellow background, only messages with a priority of 3, 4 or 5 have email notices sent."}>{l}Priority?{/l}</a>
+*}					
+			    </td>	
+			   <td>
+					<input type='hidden' name='priority' id='priority' value='5'>
+				</td>
+{*
+					<select name="priority" id="priority">
+					<option value="0">normal</a>
+					<option value="1">low</a>
+					<option value="2">medium</a>
+					<option value="3">high</a>
+					<option value="4" style="background-color:#F5B800;"  >important</a>
+					<option value="5" style="background-color:red;">critical</a>
+				   </select>
+*}
+			  
+</tr>
+<tr>
+			    <td><label>{l}Regarding{/l}:</label> </td>
+			    <td>{$regarding}
+</td>
+			<td></td>
+</tr>
+
+
+		  <tr>
+				<td style="vertical-align: top;"><label>{l}Message{/l}:</label> </td>
+			  <td colspan=3>
+	{*	<textarea name="message" id="message" rows="10" cols="50" wrap="virtual" tabindex="5">
+		</textarea> *}
+		{fckeditor InstanceName="message" Width="650px" Height="300px" ToolbarSet="Text"}
+			  </td>
+                  </tr>
+		<tr><td><input type="submit" value="Send">
+		</td></tr>
+
+
+                    </table>
+                    </fieldset>
+	
+</form>
+
+<script type="text/javascript">
+//alert('bau');
+{literal}
+
+new Ajax.Autocompleter('search','update','{/literal}{$base_uri}{literal}index.php/Messages/userlist', 
+			{	afterUpdateElement: add_user,
+				minChars : 4,
+				indicator: 'searching'
+		 } );
+
+{/literal}
+
+</script>
+

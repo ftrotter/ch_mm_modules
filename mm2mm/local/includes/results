@@ -1,0 +1,45 @@
+Directory handle: Resource id #4
+working on /var/www/html/php4/ndta_data/ patfile.dat 
+inside make_fields /var/www/html/php4/ndta_data/patfile.datelement count 1 to 4
+element count 4 to 83
+element count 83 to 84
+element count 84 to 85
+number of elements 85
+
+Warning: Invalid argument supplied for foreach() in /var/www/html/php4/mm2mm_selfip/field_maker.php on line 79
+array (
+)Cannot open file 
+
+Warning: fwrite(): supplied argument is not a valid stream resource in /var/www/html/php4/mm2mm_selfip/field_maker.php on line 25
+Cannot write to file 
+
+Warning: fclose(): supplied argument is not a valid stream resource in /var/www/html/php4/mm2mm_selfip/field_maker.php on line 29
+working on /var/www/html/php4/ndta_data/ mdlog.dat 
+inside make_fields /var/www/html/php4/ndta_data/mdlog.datelement count 1 to 4
+element count 4 to 9
+number of elements 9
+
+Warning: Invalid argument supplied for foreach() in /var/www/html/php4/mm2mm_selfip/field_maker.php on line 79
+array (
+)Cannot open file 
+
+Warning: fwrite(): supplied argument is not a valid stream resource in /var/www/html/php4/mm2mm_selfip/field_maker.php on line 25
+Cannot write to file 
+
+Warning: fclose(): supplied argument is not a valid stream resource in /var/www/html/php4/mm2mm_selfip/field_maker.php on line 29
+working on /var/www/html/php4/ndta_data/ rpgdoda.dat 
+inside make_fields /var/www/html/php4/ndta_data/rpgdoda.datelement count 1 to 4
+element count 4 to 10
+number of elements 10
+
+Warning: Invalid argument supplied for foreach() in /var/www/html/php4/mm2mm_selfip/field_maker.php on line 79
+array (
+)Cannot open file 
+
+Warning: fwrite(): supplied argument is not a valid stream resource in /var/www/html/php4/mm2mm_selfip/field_maker.php on line 25
+Cannot write to file 
+
+Warning: fclose(): supplied argument is not a valid stream resource in /var/www/html/php4/mm2mm_selfip/field_maker.php on line 29
+working on /var/www/html/php4/ndta_data/ pmtfile.dat 
+inside make_fields /var/www/html/php4/ndta_data/pmtfile.datelement count 1 to 4
+element count 4 to 28

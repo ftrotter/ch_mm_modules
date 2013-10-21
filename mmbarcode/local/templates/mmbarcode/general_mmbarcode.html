@@ -1,0 +1,73 @@
+
+{literal}
+<style type="text/css" media="print">
+.break { page-break-before: always; }
+.hide {display: none;}
+
+</style>
+
+<script language="javascript">
+function toggle(obj) {
+		var el = document.getElementById(obj);
+		if ( el.style.display != 'none' ) {
+			el.style.display = 'none';
+		}
+		else {
+			el.style.display = '';
+		}
+		return false;
+	}
+function turn_on(obj) {
+		var el = document.getElementById(obj);
+		el.style.display = '';
+
+	}
+function turn_off(obj) {
+		var el = document.getElementById(obj);
+		el.style.display = 'none';
+	}
+</script>
+
+
+{/literal}
+
+
+<table><tbody><tr><td valign='top'>
+
+<div class='hide'>
+
+<a href='{$SEARCH_LINK}'>return to search</a><br>
+Printing Barcodes for Patient: <a href='{$PATIENT_LINK}'>{$patient->get('last_name')}, {$patient->get('first_name')} </a><br>
+
+
+{foreach from=$merged_category_array key=id item=cat_array name=menu_array}
+
+{$cat_array.name} <input type="checkbox" name="check_{$id}" value="{$id}" onClick="toggle('{$id}');turn_on('print_button')"  /> <br>
+
+
+{/foreach}
+<br>
+<div id='print_button' style='display: none'>
+<input type='button' value='Print Barcodes' onClick='window.print();'>
+</div>
+</div>
+<br><br><br><br>
+
+</td></tr></tbody></table>
+
+
+{foreach from=$merged_category_array key=id item=cat_array name=menu_array}
+
+<div id={$id} name={$id} style='display: none'>
+
+<h1>Patient: {$patient->get('last_name')}, {$patient->get('first_name')}</h1>
+<h1>Catagory: {$cat_array.name}</h1>
+<img src='{$cat_array.image_link}'  alt='failure to load the url {$img_link}'><br>
+<br class='break'>
+
+</div>
+
+{/foreach}
+
+
+

@@ -1,0 +1,86 @@
+{literal}
+<script language="javascript">
+function toggle(obj) {
+		var el = document.getElementById(obj);
+		if ( el.style.display != 'none' ) {
+			el.style.display = 'none';
+		}
+		else {
+			el.style.display = '';
+		}
+		return false;
+	}
+function turn_on(obj) {
+		var el = document.getElementById(obj);
+		el.style.display = '';
+
+	}
+function turn_off(obj) {
+		var el = document.getElementById(obj);
+		el.style.display = 'none';
+	}
+
+
+</script>
+{/literal}
+
+{foreach from=$message_array item=this_message key=message_id}
+
+
+<div id='{$this_message.message_id}_message_div' class='button' {if !$this_message.last_one}style='display: none'{/if} >
+<a href='#' onclick="javascript:turn_on('{$this_message.message_id}_summary_div');turn_off('{$this_message.message_id}_message_div');">
+{$this_message.from_last},{$this_message.from_first} -> {$this_message.to_last},{$this_message.to_first}</a> 
+<br>
+<div style="background-color: white; padding: 10px; border-style: ridge">
+{$this_message.content}
+</div>
+<br>
+
+</div>
+<div id='{$this_message.message_id}_summary_div' class='button' {if $this_message.last_one}style='display: none'{/if} >
+<a href='#' onclick="javascript:turn_on('{$this_message.message_id}_message_div');turn_off('{$this_message.message_id}_summary_div');">
+{$this_message.from_last},{$this_message.from_first} -> {$this_message.to_last},{$this_message.to_first}</a> 
+{$this_message.summary_text}...
+<br>
+</div>
+
+{foreach from=$this_message item=value key=key}
+{*{$key} = {$value} <br>*}
+{/foreach}
+{/foreach}
+<br>
+<div id='reply_div'>
+{clni_form action=$SEND_ACTION}
+	<fieldset class="radio" id="details">
+		<legend>{l}Send Message{/l}</legend>
+                    <table>
+			<tbody>
+                    <tr>
+			    <td><label>{l}To{/l}:</label> </td>
+			    <td>
+			<select name="to" id="to">
+			{html_options options=$to_list }
+			</select>
+
+</td>
+			</tr><tr>
+			    <td><label>{l}Subject{/l}:</label> </td>
+			    <td>RE: {$subject} <input type='hidden' name='thread_id' value='{$thread_id}'></td>
+		  </tr>
+		  <tr>
+				<td style="vertical-align: top;"><label>{l}Message{/l}:</label> </td>
+			  <td colspan=3>
+		{fckeditor InstanceName="message" Width="650px" Height="300px" ToolbarSet="Text" }
+			  </td>
+                  </tr>
+		<tr><td><input type="submit" value="Send">
+		</td></tr>
+
+
+                    </table>
+                    </fieldset>
+
+
+</form>
+</div>
+

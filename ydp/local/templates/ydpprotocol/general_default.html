@@ -1,0 +1,11 @@
+<!--START from /var/www/html/php4/ydp_trunk/local/templates/ydpprotocol/general_default.html comment made with MMCM-->
+<fieldset class="radio" id="surveys" >
+<legend>{l}YDP Protocol Defaults (Starting Provider Protcols are built from these){/l}</legend>
+	<a href='{$SAVE_ALL_LINK}'>{l}Save all Protocols to a file{/l}</a>
+        {$protocolDataGrid->render()}
+        {if $protocolDataGrid->empty}
+        <p>{l}No Protocols Match{/l}</p>
+        {/if}
+</fieldset>
+
+<!--END from /var/www/html/php4/ydp_trunk/local/templates/ydpprotocol/general_default.html comment made with MMCM-->

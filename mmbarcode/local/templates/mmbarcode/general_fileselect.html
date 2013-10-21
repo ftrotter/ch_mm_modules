@@ -1,0 +1,14 @@
+<h3>Bulk File Upload</h3>
+Note; this system only supports scanned pdf uploads. It will ignore other file types<br>
+<form enctype="multipart/form-data" method = "post">
+	<input id="my_file_element" type="file" name="file_1" >
+	<input value='Upload Files' type="submit">
+</form>
+Process the following pdf scan files:
+<!-- This is where the output will appear -->
+<div id="files_list"></div>
+<script>
+	var multi_selector = new MultiSelector( document.getElementById( 'files_list' ), 0 );
+	multi_selector.addElement( document.getElementById( 'my_file_element' ) );
+</script>
+

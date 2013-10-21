@@ -1,0 +1,13 @@
+{include file="myrecord/main_menu.html"}
+
+
+{clni_form autocomplete="off" action=$FORM_ACTION}
+	<fieldset class="radio" id="details">
+	<legend>{l}Sent{/l}</legend>
+		{$inboxDataGrid->render()}	
+		
+        </fieldset>
+</form>
+
+{include file="myrecord/main_menu_end.html"}
+

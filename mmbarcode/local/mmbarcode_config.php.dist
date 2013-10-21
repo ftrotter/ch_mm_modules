@@ -1,0 +1,16 @@
+<?php
+
+
+$config = $GLOBALS['config'];
+
+	$docs = $config['document_manager']['repository'];
+
+	$config['mmbarcode_starting_dir'] = "$docs/mmbarcode_uploads/";
+	$config['mmbarcode_working_dir'] = "$docs/mmbarcode_working/";
+	$config['zxing_dir'] = '/root/zxing/javase/';
+
+$GLOBALS['config'] = $config;
+
+
+
+?>

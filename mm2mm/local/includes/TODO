@@ -1,0 +1,1 @@
+The current version of MM2MM is too focused on Medical Manager 9. It at least needs to include 10. To fix this we need to move the current maps etc to a 9.x directory, and recode the include files to that they are version aware. Perhaps Medical Manger version should sit in a central config file.

@@ -1,0 +1,18 @@
+<?php
+
+$config['db_type'] = "mysql";
+$config['db_host'] = "localhost";
+$config['db_user'] = "db_user"; 
+$config['db_password'] = "db_password";
+$config['db_name'] = "db_name";
+//$config['openemr_db'] = "openemr";
+$GLOBALS['config'] = $config;
+
+
+$mirrormed = '/dir/where/mirrormed/lives';
+
+$config_patfile = '/dir/where/patfile.dat';
+$config_offnotes = '/dir/where/offnotes.dme';
+
+
+?>

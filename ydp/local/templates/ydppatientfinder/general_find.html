@@ -1,0 +1,63 @@
+<form name="patientfinder" method="post" action="{$FORM_ACTION}">
+<table>
+	<tr>
+		<td>
+		        <h1>Patient Finder </h1>	
+			{l}Enter name, partial name, DOB, SSN, Record # or combo{/l}:
+
+		
+		</td>
+	</tr>
+
+	<tr>
+		<td>
+			<input type="text" size="40" name="searchstring" value="" id="searchstring"/>&nbsp;&nbsp;<input type="submit" value="search" class="context"/> 
+		</td>
+	</tr>
+	<tr>
+		<td></td>
+		<td>
+
+		</td>
+	</tr>
+</table>
+<input type="hidden" name="process" value="{$PROCESS}" />
+</form>
+{if count($result_set) > 0}
+{l}Results Found For Search{/l} '{$search_string}'
+<table class='grid'>
+	<tr>
+		<th>{l}Name{/l}</th><th>{l}DOB{/l}</th><th>{l}Patient ID{/l}</th><th>{l}SSN{/l}</th>
+		<th>Send Message</th>
+{/if}
+	{assign var=alt value="alt"}
+{counter start=1 skip=1 assign="i" }
+{foreach  name="search_results" from=$result_set key=key  item=result}
+{math equation="x%2" x=$key assign="isalt"}
+{if $isalt }
+	{assign var=alt value=""}
+{else}
+	{assign var=alt value="alt"}
+{/if}
+	<tr class='{$alt}'>
+		<td>
+		<a href="{$YDPENCOUNTER_ACTION}patient_id={$result.id}">{$result.name}</a>
+		</td>
+		<td>{$result.DOB}</td>
+		<td>{$result.pubpid}</td>
+		<td>{$result.ss}</td>
+		<td><a href="{$MESSAGE_ACTION}patient_id={$result.id}">Send Message</a></td>
+	</tr>
+{foreachelse}
+	{if is_array($result_set)}
+	<tr>
+		<td>{l}No Results Found For Search{/l} '{$search_string}'</td>
+	</tr>
+	{/if}
+{/foreach}
+	</table>
+
+	<script type="text/javascript">
+		$("searchstring").focus();
+	</script>
+

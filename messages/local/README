@@ -1,0 +1,3 @@
+copy messageconfig.php.tmp to messageconfig.php
+
+Then change it to be reasonable.

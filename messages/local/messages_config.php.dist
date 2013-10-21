@@ -1,0 +1,33 @@
+<?php
+
+
+$config = $GLOBALS['config'];
+$config['messages'] = Array();
+$config['messages']['email']['from'] = 'EHR@mirrormed.org';
+$config['messages']['email']['no_priority'] = false;
+$config['messages']['email']['from_name'] = 'MirrorMed';
+$config['messages']['email']['subject'] = 'Check Your Messages';
+$config['messages']['email']['send_to_patient'] = false;
+$config['messages']['email']['patient_url'] = '';
+$config['messages']['email']['priority_threshold'] = 10; //send nothing
+$config['messages']['email']['all_messages_are_tasks'] = true;
+if(isset($_SERVER['SERVER_NAME'])){
+	$server = $_SERVER['SERVER_NAME'];	
+	$path_parts = split('/',$_SERVER['REQUEST_URI']);
+	$instance_name = $path_parts[1];
+}else{
+	//sometimes there is no webserver
+	$server = 'cmd_line';
+	$instance_name = 'cmd_line';
+}
+
+$main_url = "https://$server/$instance_name/";
+
+$config['messages']['email']['main_url'] = $main_url;
+
+
+$GLOBALS['config'] = $config;
+
+
+
+?>

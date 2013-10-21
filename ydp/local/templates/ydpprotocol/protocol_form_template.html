@@ -1,0 +1,56 @@
+<!--START from /var/www/html/php4/ydp_trunk/local/templates/ydpprotocol/protocol_form_template.html comment made with MMCM-->
+{literal}{clni_form}{/literal}
+<h3>{$name}</h3>
+1. Key elements of the history/physical that are treatment targets for {$name}?<br>
+{literal}{input style="width: 6in; height: 1in;" name="history_targets" type="text" size="50"{/literal}
+value="{$history_targets}
+{literal}"}<br>{/literal}
+
+2. What are the patients Risk Factors that are treatment targets for {$name}?<br>
+{literal}{input style="width: 6in; height: 1in;" name="risk_factors" type="text" size="50"{/literal} 
+value="{$risk_factors}
+{literal}"}<br>{/literal}
+
+3. What are the Treatment Goals for {$name}?<br>
+{literal}{input style="width: 6in; height: 1in;" name="treatment_goals" type="text" size="50" {/literal}
+value="{$treatment_goals}
+{literal}"}<br>{/literal}
+
+4. What are the typical Medications for {$name}?<br>
+{literal}{input style="width: 6in; height: 1in;" name="medications" type="text" size="50" {/literal}
+value="{$medications}
+{literal}"}<br>{/literal}
+
+5. Indications for lab studies for {$name}?<br>
+{literal}{input style="width: 6in; height: 1in;" name="lab_studies" type="text" size="50" {/literal}
+value="{$lab_studies}
+{literal}"}<br>{/literal}
+
+6. Indications for imaging studies for {$name}?<br>
+{literal}{input style="width: 6in; height: 1in;" name="imaging_studies" type="text" size="50" {/literal}
+value="{$imaging_studies}
+{literal}"}<br>{/literal}
+
+7. Outcome goals for {$name}?<br>
+{literal}{input style="width: 6in; height: 1in;" name="goals" type="text" size="50"{/literal}
+value="{$outcome_goals}
+{literal}"}<br>{/literal}
+
+8. Referral criteria, if referring patient out for {$name}?<br>
+{literal}{input style="width: 6in; height: 1in;" name="referral" type="text" size="50"{/literal}
+value="{$referral}
+{literal}"}<br>{/literal}
+
+
+9. Typical Interventions for {$name}?<br>
+{literal}{input style="width: 6in; height: 1in;" name="interventions" type="text" size="50"{/literal}
+value="{$interventions}
+{literal}"}<br>{/literal}
+
+
+<input type='hidden' name='force_new_version' value='true'>
+
+<input type='hidden' name="external_id" value="{literal}{$external_id}{/literal}" id="external_id">
+{literal}{submit}{/literal}
+</form>
+<!--END from /var/www/html/php4/ydp_trunk/local/templates/ydpprotocol/protocol_form_template.html comment made with MMCM-->

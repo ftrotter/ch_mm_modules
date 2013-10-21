@@ -1,0 +1,220 @@
+<!--START from /var/www/html/php4/ydp_trunk/local/templates/patient/general_encounter.html comment made with MMCM-->
+<script type='text/javascript' src='{$base_dir}jpspan_server.php?client'></script>
+<SCRIPT type='text/javascript' src="{$base_dir}js/autocomplete.js"></script>
+{literal}
+<script language="javascript">
+function captureEnter (field, event) {
+		var keyCode = event.keyCode ? event.keyCode : event.which ? event.which : event.charCode;
+		if (keyCode == 13) {
+			var i;
+			for (i = 0; i < field.form.elements.length; i++)
+				if (field == field.form.elements[i])
+					break;
+			i = (i + 1) % field.form.elements.length;
+			field.form.elements[i].focus();
+			return false;
+		} 
+		else
+		return true;
+	}      
+}
+</script>
+<script language="javascript">
+function toggle(obj) {
+		var el = document.getElementById(obj);
+		if ( el.style.display != 'none' ) {
+			el.style.display = 'none';
+		}
+		else {
+			el.style.display = '';
+		}
+	}
+function turn_on(obj) {
+		var el = document.getElementById(obj);
+		el.style.display = '';
+	}
+
+
+
+function reload() {
+ var iframe = document.getElementById('to_reload');
+ if (!iframe) return false;
+ iframe.src = iframe.src;
+}
+
+function encounter_view() { 
+{/literal}
+
+	location = "{$SELF_ACTION}";
+
+{literal}
+ }
+</script>
+
+{/literal}
+<div align='center' style='font-family: Arial, sans-serif'>
+<table><tr><td>
+<img src="https://yourdoctorprogram.com/ydp_logo.jpg" border="0" alt="Your Doctor Program" >
+</td><td>
+<h1 style='color: 'align='right' >YDP Encounter Summary</h1>
+</td>
+</tr></table>
+<table align='center' width='80%'>
+<tr>
+	<td width='45%'>
+		Physician Name: {$provider->get(last_name)}, {$provider->get(first_name)}
+	</td>
+	<td>
+		<a class="button" href='{$DASHBOARD_LINK}'>Dashboard</a> 
+		<a class="button" href='{$PRINT_LINK}' target='print_window'>Print</a>
+		
+	</td>
+</tr>
+<tr>
+	
+		<td>
+		Date of Service: {$encounter->get(date_of_treatment)|date_format} <br>
+			<br>
+		</td>
+		<td>
+
+				<a class="button" href='{$MESSAGE_LINK}'>Message Patient</a>
+				<a class="button" href='{$SURVEY_LINK}'>Surveys</a>
+
+
+
+		</td>
+		</tr>
+
+</table>
+<table align='center' width='80%'>
+<tr>
+	<td width='60%'>
+
+		<table align='left'>		<tr>
+			
+		<td>
+		Patient Name: {$person->get('last_name')},  {$person->get('first_name')}
+		</td>
+
+		</tr>
+		<tr>
+	
+		<td>
+		&nbsp; &nbsp; &nbsp; Date of Birth: {$person->get(date_of_birth)|date_format} 		</td></tr>
+		<tr>
+			
+		<td>
+        {foreach from=$person->get_addresses() item=row}
+						
+     		
+		&nbsp; &nbsp; &nbsp; Address: {$row.type}:
+{$row.line1}<br>
+		&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {$row.line2} {$row.city}
+ {enum_lookup name=state value=$row.state}, {$row.postal_code}
+   	{foreachelse}
+                No Addresses
+        {/foreach}	
+		</td></tr>
+		<tr>
+		
+		<td>
+        {foreach from=$person->get_numbers() item=row}
+		&nbsp; &nbsp; &nbsp; Phone: {formatPhoneNumber number=$row.number} {if !$row.active}DNC{/if}<br>
+        {foreachelse}
+		No Phone Number
+	{/foreach}
+
+		</td></tr>
+		<tr>
+
+		<td>
+		&nbsp; &nbsp; &nbsp; Email: {$person->get('email')}<br>	
+		</td></tr>
+		</table>
+
+	</td>
+	<td >
+{if $vitals_done}
+	<table align='left' valign='top' bgcolor='#BBBBBB' width='100%'>
+	<tr>
+		<td>
+		Temp: {$temp}
+		</td>	
+		<td>
+		Resp: {$resp}
+		</td>
+	</tr>
+	<tr>
+		<td>
+		BP: {$sbp}/{$dbp}
+		</td>
+		<td>
+		Pulse: {$pulse}
+		</td>	
+	</tr>
+	<tr>		<td>
+		Wt: {$weight} lbs  
+		</td>
+		<td>{assign var=bmi value=($weight/($height*$height))*703}
+		BMI: {bmi weight=$weight height=$height}
+		</td>
+	</tr>
+	<tr>
+		<td>
+		Ht: {$height}	
+		</td>	
+		<td>
+		
+			<a href='http://www.bmi-calculator.net/bmi-related-disease.php'>
+			Ideal Weight</a>: {ideal_bmi height=$height}
+		
+		</td>
+	</tr>	
+	
+	</table>
+
+{else}
+<iframe frameborder='0' width=350 height=230 src='{$VITALS_FORM}'>
+Your browser does not support iframes (try <a href='http://www.mozilla.com/firefox/'>Firefox</a>) <br>
+You can <a href='{$VITALS_FORM}'>add vitals here </a>
+</iframe>
+{/if}
+
+			
+	</td>
+</tr>
+			{if $vitals_done}
+<tr><td></td><td>
+				<br>
+<a class="button" href={$MAIN_VITALS_LINK}>Redo Vitals</a> 
+<a class="button" href={$EDIT_VITALS_LINK}>Correct Vitals</a> 
+				
+</td></tr>
+			{/if}
+
+</table>
+
+		{$planGrid->render()}
+		{if $planGrid->empty}
+			<p>{l}Patient has no Plans{/l}</p>
+		{/if}
+<br>
+	{if $display_edit}
+	<div style='text-align: left;'><a class="button" href='{$ADD_ACTION}'>New Plan</a></div>
+	<h3>Editing {enum_lookup name="protocols" value=$plan_type}</h3>
+	<a class="button" href='{$ADD_ACTION}'>Cancel</a>
+	{include file="ydpencounter/general_planedit.html"}
+	{else}
+		{if $display_status}
+	<div style='text-align: left;'><a class="button" href='{$ADD_ACTION}'>New Plan</a></div>
+		<h3>Changing Status {enum_lookup name="protocols" value=$plan_type}</h3>
+	<a class="button" href='{$ADD_ACTION}'>Cancel</a>
+		{include file="ydpencounter/general_planstatus.html"}
+		{else}
+				{include file="ydpencounter/general_planadd.html"}
+		{/if}
+	{/if}	
+ </div>
+<br><br><br><br><br>
+<!--END from /var/www/html/php4/ydp_trunk/local/templates/patient/general_encounter.html comment made with MMCM-->

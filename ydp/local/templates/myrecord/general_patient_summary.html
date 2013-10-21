@@ -1,0 +1,45 @@
+<!--START from /var/www/html/php4/ydp_trunk/local/templates/myrecord/general_patient_summary.html comment made with MMCM-->
+{include file="myrecord/main_menu.html"}
+<table cellspacing="10">
+<tr>
+<td>
+<h4>{l}Basic Patient Information{/l}</h4>
+<ul>
+<li>MM patient id: {$patient_id}</li>
+<li>Patient Name: {$patient->get('first_name')}, {$patient->get('last_name')}</li>
+<li>ID: {$patient->get("print_identifier_type")} {$patient->get('identifier')}</li>
+<li>Birthday: {$patient->get('date_of_birth')} </li>
+<li>Gender: {$patient->get('print_gender')}</li>
+<li>Martial Status: {$patient->get('print_marital_status')}</li>
+<li>Email: {$patient->get('email')}</li>
+<li>Phone Number: {formatPhoneNumber number=$number->get('number')}</li>
+<li>Address Line1: {$address->get('line1')}</li>
+<li>Address Line2: {$address->get('line2')}</li>
+<li>Address City: {$address->get('city')}</li>
+<li>Address Region: {$address->get('region')}</li>
+<li>Address State: {$address->get_state($address->getStateList())}</li>
+<li>Address County: {$address->get('county')}</li>
+<li>Address Zip: {$address->get('zip')}</li>
+</ul>
+</td>
+<td valign="top">
+<h4>{l}Basic Provider Information{/l}</h4>
+<ul>
+<li>Provider From person record {$patient->get('print_default_provider')}</li>
+<li>Name: {$provider->get('first_name')}, {$provider->get('last_name')}</li>
+<li>Phone Number: {formatPhoneNumber number=$provider_number->get('number')}</li>
+<li>Address Line1: {$provider_address->get('line1')}</li>
+<li>Address Line2: {$provider_address->get('line2')}</li>
+<li>Address City: {$provider_address->get('city')}</li>
+<li>Address Region: {$provider_address->get('region')}</li>
+<li>Address State: {$provider_address->get_state($address->getStateList())}</li>
+<li>Address County: {$provider_address->get('county')}</li>
+<li>Address Zip: {$provider_address->get('zip')}</li>
+</ul>
+</td>
+</tr>
+</table>
+
+{$planRowEditor->render()}
+
+<!--END from /var/www/html/php4/ydp_trunk/local/templates/myrecord/general_patient_summary.html comment made with MMCM-->

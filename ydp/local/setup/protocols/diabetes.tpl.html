@@ -1,0 +1,79 @@
+<!--START from /var/www/html/php4/ydp_trunk/local/templates/ydpprotocol/protocol_form_template.html comment made with MMCM-->
+{clni_form}
+<h3>Diabetes</h3>
+1. Key elements of the history/physical that are treatment targets for Diabetes?<br>
+{input style="width: 6in; height: 1in;" name="history_targets" type="text" size="50"
+value="Years of known diabetes, complications CAD, ESRD, Opthal, Neuropathy), treatment history, smoking history, obesity, polydipsia, polyuria, weakness, fatigue, weight loss
+"}<br>
+
+2. What are the patients Risk Factors that are treatment targets for Diabetes?<br>
+{input style="width: 6in; height: 1in;" name="risk_factors" type="text" size="50" 
+value="Family history, Obesity, protocol not indicated or contraindicated, patient declined to follow protocol, economic, social, religious, system resource unavailable, insurance limitations, other
+"}<br>
+
+3. What are the Treatment Goals for Diabetes?<br>
+{input style="width: 6in; height: 1in;" name="treatment_goals" type="text" size="50" 
+value="Blood sugar within normal range, HbA1c less than 9.0%
+"}<br>
+
+4. What are the typical Medications for Diabetes?<br>
+{input style="width: 6in; height: 1in;" name="medications" type="text" size="50" 
+value="Oral agents
+Sulfonylureas: Generic- Glyburide, Glipizide Brand: Glyburide presstabs, Daily: Glimerpiride, Blipizide GITS, Sulfonylurea combinations: Glyburide/ metformin
+Biguanides: Metformin, Metformin extended release
+Thiazolidinediones (TZD's): Pioglitazone, Rosiglitazone, Rosiglitazone/ metformin combination
+Melitinides: Repaglindine, Nateglinide
+Alpha Glucosidase Inhibitors: Acarbose, Miglitol
+Insulin
+Aspirin for patient over 30 unless contraindicated
+Hypertension: First Line: ACE Inhibitor: Ramipril, Quinapril, Enalapril, Captopril, Angiotensin Receptor Blockers ARB's: Irbesartan, Losartan, Non-dihyropyridine CCB: Verapamil, Diltiazem Second Line: Beta blockers: Atenolol, Metroprolol, Bisoprologl, Carvedilol Diuretics: Thiazides, Loop diuretics Peripheral alpa blockers / centeral acting alpha agonists, Dihydropyridine Calcium Channel Blockers: Amlodipine, Felodipine, Isradipine, Nicardipiine, Nifedipine, Nislodipine
+
+"}<br>
+
+5. Indications for lab studies for Diabetes?<br>
+{input style="width: 6in; height: 1in;" name="lab_studies" type="text" size="50" 
+value="HbA1c Management: At least one measurement with most recent less than 9.0%
+Lipid Management: LCD-C < 100mg/dl 
+Urine Protein Screening: At least one microalubumin screening annually or diagnosis of nephropathy
+
+"}<br>
+
+6. Indications for imaging studies for Diabetes?<br>
+{input style="width: 6in; height: 1in;" name="imaging_studies" type="text" size="50" 
+value="Retinopathy screening as above, baseline EKG
+
+"}<br>
+
+7. Outcome goals for Diabetes?<br>
+{input style="width: 6in; height: 1in;" name="followup" type="text" size="50"
+value="Key indicators
+Glucose Mgt: Percentage of patients with one or more A1c test(s)
+Glucose Mgt: Percentage of patients with most recent A1c level > 9.0%
+BP: Percentage of patients with most recent BP <140/90
+Lipid: Percentage of patients with at least one LDL cholesterol test
+Lipid: Percentage of patients with most recent LDL cholesterol < 130 mg/dl
+Urine protein: Percentage of patients with at least one microalbumin during measurement year or who had evidence of medical attention for medical nephropathy
+Eyes: Percentage of patients who received dilated eye exam or exam by optometrist / opthalmologist
+Foot: Percentage of patients receiving at least one complete foot exam
+YDP additional standards
+Percentage patient understanding of disease and satisfaction with care
+Percentage goals met per risk factor adjusted diagnosis
+
+"}<br>
+
+8. Referral criteria, if referring patient out for Diabetes?<br>
+{input style="width: 6in; height: 1in;" name="followup" type="text" size="50"
+value="Retinopathy: Abnormal exam or unable to visualize
+Nephrology: Creatinine above 2.0, Microabluminuria persists with good glucose, blood pressure control
+Endocrinology: Maximize treatment and HbA1c >9.0%
+Nutrition: New onset diabetes, BMI > 25
+Hypertension: Maximize treatment and not to goal
+
+"}<br>
+
+<input type='hidden' name='force_new_version' value='true'>
+
+<input type='hidden' name="external_id" value="{$user_id}" id="external_id">
+{submit}
+</form>
+<!--END from /var/www/html/php4/ydp_trunk/local/templates/ydpprotocol/protocol_form_template.html comment made with MMCM-->
